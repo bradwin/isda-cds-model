@@ -5,8 +5,12 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 import json
+import os
 from datetime import date
+from pathlib import Path
 
 from python_isda_cds.api.endpoints import router
 
@@ -113,6 +117,37 @@ sample_data = {
         {"tenor_years": 5.0, "spread": 0.02}
     ]
 }
+
+# Create static directory if it doesn't exist
+static_dir = Path(__file__).parent / "static"
+os.makedirs(static_dir, exist_ok=True)
+
+# Mount static files directory
+app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
+# User-friendly UI endpoint
+@app.get("/ui", response_class=HTMLResponse, tags=["UI"])
+async def ui():
+    """
+    User-friendly UI for the ISDA CDS Standard Model API.
+    """
+    # Read the HTML content from the static directory
+    html_path = static_dir / "index.html"
+    if html_path.exists():
+        with open(html_path, "r") as html_file:
+            return html_file.read()
+    else:
+        return """
+        <html>
+            <head>
+                <title>ISDA CDS Standard Model API - UI not found</title>
+            </head>
+            <body>
+                <h1>UI files not found</h1>
+                <p>Please make sure the static files have been created.</p>
+            </body>
+        </html>
+        """
 
 # Custom OpenAPI schema to improve documentation
 def custom_openapi():
@@ -677,6 +712,7 @@ async def root():
         "version": "1.0.0",
         "description": "Python implementation of the ISDA CDS Standard Model",
         "documentation": "/docs",
+        "ui": "/ui"  # Add link to the new UI
     }
 
 # Run the application when executed directly

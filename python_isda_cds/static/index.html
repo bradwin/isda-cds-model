@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISDA CDS Standard Model API</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://www.isda.org/wp-content/uploads/2018/02/isda-logo.png" alt="ISDA Logo">
+            <h1>ISDA CDS Standard Model API</h1>
+        </div>
+        <nav>
+            <a href="/" class="nav-button">Home</a>
+            <a href="/docs" class="nav-button">Swagger Docs</a>
+            <a href="/ui" class="nav-button active">Interactive UI</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="sidebar">
+            <h2>API Endpoints</h2>
+            <ul class="endpoint-list">
+                <li data-endpoint="zero-curve" class="active">Create Zero Curve</li>
+                <li data-endpoint="discount-factor">Get Discount Factor</li>
+                <li data-endpoint="zero-rate">Get Zero Rate</li>
+                <li data-endpoint="forward-rate">Get Forward Rate</li>
+                <li data-endpoint="bootstrap-credit-curve">Bootstrap Credit Curve</li>
+                <li data-endpoint="price-cds">Price CDS</li>
+                <li data-endpoint="calculate-upfront">Calculate Upfront Charge</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="endpoint-header">
+                <h2 id="endpoint-title">Create Zero Curve</h2>
+                <div class="actions">
+                    <button id="load-example" class="action-button">Load Example</button>
+                    <button id="clear-form" class="action-button">Clear Form</button>
+                </div>
+            </div>
+
+            <!-- Documentation Section -->
+            <div class="documentation-section">
+                <h3>Documentation</h3>
+                <div class="documentation-content" id="endpoint-documentation">
+                    <!-- Documentation will be loaded here -->
+                </div>
+            </div>
+
+            <div class="request-section">
+                <h3>Request</h3>
+                <div class="form-container" id="form-container">
+                    <!-- Form will be dynamically generated here based on the selected endpoint -->
+                </div>
+                <div class="json-container">
+                    <h4>Request JSON</h4>
+                    <div class="json-editor" id="request-json" contenteditable="true"></div>
+                    <div class="editor-actions">
+                        <button id="update-form" class="action-button">Update Form from JSON</button>
+                    </div>
+                </div>
+                <div class="submit-container">
+                    <button id="submit-request" class="submit-button">
+                        <i class="fas fa-play"></i> Execute Request
+                    </button>
+                </div>
+            </div>
+
+            <div class="response-section" id="response-section">
+                <h3>Response</h3>
+                <div class="status-container" id="status-container">
+                    <div class="status-indicator" id="status-indicator"></div>
+                    <div class="status-text" id="status-text">Status: Ready</div>
+                </div>
+                <div class="json-container">
+                    <h4>Response JSON</h4>
+                    <div class="json-display" id="response-json"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>ISDA CDS Standard Model API &copy; 2025</p>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
